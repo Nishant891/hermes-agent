@@ -446,7 +446,7 @@ def _transform_sudo_command(
         _configured_password = get_secret("SUDO_PASSWORD")
     except Exception:
         _configured_password = os.environ.get("SUDO_PASSWORD")
-    has_configured_password = _configured_password is not None
+    has_configured_password = bool(_configured_password and _configured_password.strip())
     sudo_password = _configured_password if has_configured_password else _get_cached_sudo_password()
 
     # delegate_task children inherit HERMES_INTERACTIVE=1 (and possibly a stale thread-local
